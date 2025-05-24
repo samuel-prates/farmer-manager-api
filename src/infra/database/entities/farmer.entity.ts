@@ -12,6 +12,6 @@ export class Farmer {
   @Column()
   farmerName: string;
 
-  @OneToMany(() => Farm, (farm) => farm.farmer)
+  @OneToMany(() => Farm, (farm) => farm.farmer, { cascade: true })
   farms: Farm[];
 }

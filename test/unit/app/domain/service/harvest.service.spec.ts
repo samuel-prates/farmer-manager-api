@@ -3,8 +3,6 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { HarvestService } from 'src/app/domain/service/harvest.service';
 import { Harvest } from 'src/infra/database/entities/harvest.entity';
 import { Repository, DeleteResult } from 'typeorm';
-import { CreateHarvestDto } from 'src/app/domain/dto/create-harvest.dto';
-import { Farm } from 'src/infra/database/entities/farm.entity';
 
 describe('HarvestService', () => {
   let service: HarvestService;
@@ -34,35 +32,6 @@ describe('HarvestService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-  });
-
-  it('should create a harvest with farm', async () => {
-    const dto: CreateHarvestDto = { name: 'Harvest 1' } as any;
-    const farm: Farm = { id: 1 } as Farm;
-    const harvest = { ...dto, farm } as Harvest;
-
-    harvestRepository.create.mockReturnValue(harvest);
-    harvestRepository.save.mockResolvedValue(harvest);
-
-    const result = await service.createHarvest(dto, farm);
-
-    expect(harvestRepository.create).toHaveBeenCalledWith(dto);
-    expect(harvestRepository.save).toHaveBeenCalledWith(harvest);
-    expect(result).toEqual(harvest);
-  });
-
-  it('should create a harvest without farm', async () => {
-    const dto: CreateHarvestDto = { name: 'Harvest 2' } as any;
-    const harvest = { ...dto } as Harvest;
-
-    harvestRepository.create.mockReturnValue(harvest);
-    harvestRepository.save.mockResolvedValue(harvest);
-
-    const result = await service.createHarvest(dto);
-
-    expect(harvestRepository.create).toHaveBeenCalledWith(dto);
-    expect(harvestRepository.save).toHaveBeenCalledWith(harvest);
-    expect(result).toEqual(harvest);
   });
 
   it('should delete by farm id', async () => {

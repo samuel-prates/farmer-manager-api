@@ -12,6 +12,6 @@ export class Harvest {
   @Column()
   culture: string;
 
-  @ManyToOne(() => Farm, (farm) => farm.harvests)
+  @ManyToOne(() => Farm, (farm) => farm.harvests, { onDelete: 'CASCADE' })
   farm: Farm;
 }

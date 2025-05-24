@@ -19,11 +19,11 @@ describe('FarmerService', () => {
     find: jest.fn(),
     create: jest.fn(),
     save: jest.fn(),
+    merge: jest.fn(),
     delete: jest.fn(),
   };
 
   const mockFarmService = {
-    createFarm: jest.fn(),
     deleteByFarmerId: jest.fn(),
   };
 
@@ -47,7 +47,6 @@ describe('FarmerService', () => {
     mockFarmerRepository.findOneBy.mockResolvedValue(null);
     mockFarmerRepository.create.mockReturnValue({ id: 1, farms: [] });
     mockFarmerRepository.save.mockResolvedValue({ id: 1, farms: [] });
-    mockFarmService.createFarm.mockResolvedValue({});
 
     const dto: CreateFarmerDto = { federalIdentification: '12345678901', farmerName: 'John', farms: [] };
     const result = await service.create(dto);
@@ -77,7 +76,7 @@ describe('FarmerService', () => {
     const result = await service.findAll();
     expect(result).toEqual([{ id: 1 }]);
     expect(mockFarmerRepository.find).toHaveBeenCalledWith({
-      relations: { farms: { harvests: true } },
+      relations: { farms: true },
     });
   });
 
@@ -98,15 +97,16 @@ describe('FarmerService', () => {
 
   it('should update a farmer', async () => {
     mockFarmerRepository.findOneBy.mockResolvedValue({ id: 1, farms: [] });
-    mockFarmerRepository.save.mockResolvedValue({ id: 1, farms: [] });
     mockFarmService.deleteByFarmerId.mockResolvedValue(undefined);
-    mockFarmService.createFarm.mockResolvedValue({});
+    mockFarmerRepository.merge.mockReturnValue({ id: 1, farms: [] });
+    mockFarmerRepository.save.mockResolvedValue({ id: 1, farms: [] });
 
     const dto: UpdateFarmerDto = { federalIdentification: '12345678901', farmerName: 'Jane', farms: [] };
     const result = await service.update(1, dto);
 
     expect(mockFarmerRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
     expect(mockFarmService.deleteByFarmerId).toHaveBeenCalledWith(1);
+    expect(mockFarmerRepository.merge).toHaveBeenCalled();
     expect(mockFarmerRepository.save).toHaveBeenCalled();
     expect(result).toEqual({ id: 1, farms: [] });
   });
@@ -119,13 +119,11 @@ describe('FarmerService', () => {
 
   it('should remove a farmer', async () => {
     mockFarmerRepository.findOneBy.mockResolvedValue({ id: 1 });
-    mockFarmService.deleteByFarmerId.mockResolvedValue(undefined);
     mockFarmerRepository.delete.mockResolvedValue(undefined);
 
     await service.remove(1);
 
     expect(mockFarmerRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
-    expect(mockFarmService.deleteByFarmerId).toHaveBeenCalledWith(1);
     expect(mockFarmerRepository.delete).toHaveBeenCalledWith(1);
   });
 

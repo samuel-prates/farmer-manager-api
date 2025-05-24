@@ -25,9 +25,6 @@ export class FarmerService {
       }
       const farmer = this.farmerRepository.create(createFarmerDto);
       await this.farmerRepository.save(farmer);
-      for (const farmDto of createFarmerDto.farms) {
-        await this.farmService.createFarm(farmDto, farmer);
-      }
       return farmer;
     } catch (error) {
       if (error instanceof ConflictException) {
@@ -67,11 +64,8 @@ export class FarmerService {
     }
 
     await this.farmService.deleteByFarmerId(id);
-    const updated = Object.assign(farmer, updateFarmerDto);
+    const updated = this.farmerRepository.merge(farmer, updateFarmerDto);
     const updatedFarmer = await this.farmerRepository.save(updated);
-    for (const farmDto of updateFarmerDto.farms) {
-      await this.farmService.createFarm(farmDto, updatedFarmer);
-    }
     return updatedFarmer;
   }
 
@@ -80,7 +74,6 @@ export class FarmerService {
     if (!farmer) {
       throw new NotFoundException('Farmer not found');
     }
-    await this.farmService.deleteByFarmerId(id);
     await this.farmerRepository.delete(id);
   }
 }

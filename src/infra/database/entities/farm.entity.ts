@@ -19,9 +19,9 @@ export class Farm {
   @Column()
   vegetationArea: number;
 
-  @ManyToOne(() => Farmer, (farmer) => farmer.farms)
+  @ManyToOne(() => Farmer, (farmer) => farmer.farms, { onDelete: 'CASCADE' })
   farmer: Farmer;
 
-  @OneToMany(() => Harvest, (harvest) => harvest.farm)
+  @OneToMany(() => Harvest, (harvest) => harvest.farm, { cascade: true })
   harvests: Harvest[];
 }
