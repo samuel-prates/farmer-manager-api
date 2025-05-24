@@ -1,0 +1,31 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "./",
+  "collectCoverageFrom": [
+    "**/*.(t|j)s"
+  ],
+  "coveragePathIgnorePatterns": [
+    "<rootDir>/node_modules/",
+    "<rootDir>/test/",
+    "<rootDir>/coverage/",
+    "<rootDir>/dist/",
+    "<rootDir>/src/main.ts",
+    "<rootDir>/src/app/farmer.module.ts",
+    "<rootDir>/src/app.module.ts"
+  ],
+  "coverageReporters": [
+    "text",
+    "lcov"
+  ],
+  "modulePathIgnorePatterns": [
+    "<rootDir>/dist/"
+  ],
+  "testEnvironment": "node",
+  "testRegex": "\\.spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^src/(.*)$": "<rootDir>/src/$1"
+  }
+}

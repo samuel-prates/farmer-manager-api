@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { FarmService } from '../../../../../src/app/domain/service/farm.service';
-import { Farm } from '../../../../../src/infra/database/entities/farm.entity';
-import { Farmer } from '../../../../../src/infra/database/entities/farmer.entity';
-import { HarvestService } from '../../../../../src/app/domain/service/harvest.service';
+import { FarmService } from 'src/app/domain/service/farm.service';
+import { Farm } from 'src/infra/database/entities/farm.entity';
+import { Farmer } from 'src/infra/database/entities/farmer.entity';
+import { HarvestService } from 'src/app/domain/service/harvest.service';
 import { Repository } from 'typeorm';
-import { CreateFarmDto } from '../../../../../src/app/domain/dto/create-farm.dto';
+import { CreateFarmDto } from 'src/app/domain/dto/create-farm.dto';
 
 describe('FarmService', () => {
   let service: FarmService;

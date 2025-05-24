@@ -2,7 +2,7 @@ import { BadRequestException, ConflictException, Inject, Injectable, NotFoundExc
 import { CreateFarmerDto } from '../dto/create-farmer.dto';
 import { UpdateFarmerDto } from '../dto/update-farmer.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Farmer } from '../../../infra/database/entities/farmer.entity';
+import { Farmer } from 'src/infra/database/entities/farmer.entity';
 import { Repository } from 'typeorm';
 import { FarmService } from './farm.service';
 
@@ -40,9 +40,7 @@ export class FarmerService {
   async findAll(): Promise<Farmer[]> {
     return this.farmerRepository.find({
       relations: {
-        farms: {
-          harvests: true,
-        },
+        farms: true,
       },
     });
   }

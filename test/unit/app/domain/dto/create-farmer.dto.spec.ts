@@ -1,7 +1,7 @@
 import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
-import { CreateFarmerDto } from '../../../../../src/app/domain/dto/create-farmer.dto';
-import { CreateFarmDto } from '../../../../../src/app/domain/dto/create-farm.dto'; ;
+import { CreateFarmerDto } from 'src/app/domain/dto/create-farmer.dto';
+import { CreateFarmDto } from 'src/app/domain/dto/create-farm.dto'; ;
 
 describe('CreateFarmerDto', () => {
   it('should validate a correct farmer', async () => {

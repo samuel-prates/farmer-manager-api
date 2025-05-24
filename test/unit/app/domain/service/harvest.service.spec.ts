@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { HarvestService } from '../../../../../src/app/domain/service/harvest.service';
-import { Harvest } from '../../../../../src/infra/database/entities/harvest.entity';
+import { HarvestService } from 'src/app/domain/service/harvest.service';
+import { Harvest } from 'src/infra/database/entities/harvest.entity';
 import { Repository, DeleteResult } from 'typeorm';
-import { CreateHarvestDto } from '../../../../../src/app/domain/dto/create-harvest.dto';
-import { Farm } from '../../../../../src/infra/database/entities/farm.entity';
+import { CreateHarvestDto } from 'src/app/domain/dto/create-harvest.dto';
+import { Farm } from 'src/infra/database/entities/farm.entity';
 
 describe('HarvestService', () => {
   let service: HarvestService;

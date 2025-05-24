@@ -1,8 +1,8 @@
-import { Harvest } from "../../../infra/database/entities/harvest.entity";
+import { Harvest } from "src/infra/database/entities/harvest.entity";
 import { CreateHarvestDto } from "../dto/create-harvest.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DeleteResult, Repository } from "typeorm";
-import { Farm } from "../../../infra/database/entities/farm.entity";
+import { Farm } from "src/infra/database/entities/farm.entity";
 
 export class HarvestService {
     constructor(

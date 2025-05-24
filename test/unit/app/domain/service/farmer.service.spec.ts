@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { FarmerService } from '../../../../../src/app/domain/service/farmer.service';
-import { FarmService } from '../../../../../src/app/domain/service/farm.service';
-import { Farmer } from '../../../../../src/infra/database/entities/farmer.entity';
+import { FarmerService } from 'src/app/domain/service/farmer.service';
+import { FarmService } from 'src/app/domain/service/farm.service';
+import { Farmer } from 'src/infra/database/entities/farmer.entity';
 import { Repository } from 'typeorm';
 import { ConflictException, NotFoundException, BadRequestException } from '@nestjs/common';
-import { CreateFarmerDto } from '../../../../../src/app/domain/dto/create-farmer.dto';
-import { UpdateFarmerDto } from '../../../../../src/app/domain/dto/update-farmer.dto';
+import { CreateFarmerDto } from 'src/app/domain/dto/create-farmer.dto';
+import { UpdateFarmerDto } from 'src/app/domain/dto/update-farmer.dto';
 
 describe('FarmerService', () => {
   let service: FarmerService;

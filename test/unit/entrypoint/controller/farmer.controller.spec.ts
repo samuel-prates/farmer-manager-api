@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FarmerController } from '../../../../src/entrypoint/controller/farmer.controller';
-import { FarmerService } from '../../../../src/app/domain/service/farmer.service';
-import { CreateFarmerDto } from '../../../../src/app/domain/dto/create-farmer.dto';
-import { UpdateFarmerDto } from '../../../../src/app/domain/dto/update-farmer.dto';
+import { FarmerController } from 'src/entrypoint/controller/farmer.controller';
+import { FarmerService } from 'src/app/domain/service/farmer.service';
+import { CreateFarmerDto } from 'src/app/domain/dto/create-farmer.dto';
+import { UpdateFarmerDto } from 'src/app/domain/dto/update-farmer.dto';
 
 describe('FarmerController', () => {
   let controller: FarmerController;

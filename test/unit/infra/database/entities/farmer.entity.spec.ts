@@ -1,5 +1,5 @@
-import { Farmer } from '../../../../../src/infra/database/entities/farmer.entity';
-import { Farm } from '../../../../../src/infra/database/entities/farm.entity';
+import { Farmer } from 'src/infra/database/entities/farmer.entity';
+import { Farm } from 'src/infra/database/entities/farm.entity';
 
 describe('Farmer Entity', () => {
   it('should create a Farmer instance with properties', () => {

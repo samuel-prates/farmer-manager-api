@@ -1,4 +1,4 @@
-import { TotalAreaValidator } from '../../../../../src/app/domain/validator/total-area.validator';
+import { TotalAreaValidator } from 'src/app/domain/validator/total-area.validator';
 
 describe('TotalAreaValidator', () => {
   const validator = new TotalAreaValidator();

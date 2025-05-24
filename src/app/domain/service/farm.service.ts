@@ -1,8 +1,8 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Farm } from '../../../infra/database/entities/farm.entity';
-import { Farmer } from '../../../infra/database/entities/farmer.entity';
+import { Farm } from 'src/infra/database/entities/farm.entity';
+import { Farmer } from 'src/infra/database/entities/farmer.entity';
 import { HarvestService } from './harvest.service';
 import { CreateFarmDto } from '../dto/create-farm.dto';
 
