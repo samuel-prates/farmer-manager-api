@@ -37,7 +37,9 @@ export class FarmerService {
   async findAll(): Promise<Farmer[]> {
     return this.farmerRepository.find({
       relations: {
-        farms: true,
+        farms: {
+          harvests: true,
+        },
       },
     });
   }
