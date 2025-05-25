@@ -76,7 +76,11 @@ describe('FarmerService', () => {
     const result = await service.findAll();
     expect(result).toEqual([{ id: 1 }]);
     expect(mockFarmerRepository.find).toHaveBeenCalledWith({
-      relations: { farms: true },
+      relations: {
+        farms: {
+          "harvests": true,
+        },
+      },
     });
   });
 
