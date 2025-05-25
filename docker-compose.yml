@@ -14,7 +14,7 @@ services:
     networks:
       - farms_network
 
-  app:
+  farms-app:
     build:
       context: .
       dockerfile: docker/Dockerfile

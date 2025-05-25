@@ -32,4 +32,4 @@ docker-log:
 
 docker-erase:
 	docker-compose down -v
-	docker rmi farms-app
+	docker rmi backend-farms-app
