@@ -11,6 +11,12 @@ export class Farm {
   farmName: string;
 
   @Column()
+  city: string;
+
+  @Column()
+  state: string;
+
+  @Column()
   totalArea: number;
 
   @Column()

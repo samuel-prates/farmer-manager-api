@@ -10,6 +10,16 @@ export class CreateFarmDto {
     @IsNotEmpty()
     @ApiProperty()
     farmName: string;
+    
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    city: string;
+    
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    state: string;
 
     @IsNumber()
     @IsNotEmpty()
