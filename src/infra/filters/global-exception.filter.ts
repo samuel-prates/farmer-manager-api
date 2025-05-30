@@ -10,12 +10,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const status = 
+    const status =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    const message = 
+    const message =
       exception instanceof HttpException
         ? exception.message
         : 'Internal server error';
@@ -28,6 +28,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       message: message,
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
       this.logger.error(
         `${request.method} ${request.url}`,

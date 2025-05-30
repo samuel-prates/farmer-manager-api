@@ -5,17 +5,17 @@ import { PaginationDto } from '../dto/pagination.dto';
 import { PaginatedResult } from '../interfaces/paginated-result.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Farmer } from 'src/infra/database/entities/farmer.entity';
-import { Repository } from 'typeorm';
 import { FarmService } from './farm.service';
+import { FarmerRepository } from 'src/infra/database/repositories/farmer.repository';
 
 @Injectable()
 export class FarmerService {
   constructor(
     @InjectRepository(Farmer)
-    private readonly farmerRepository: Repository<Farmer>,
+    private readonly farmerRepository: FarmerRepository,
     @Inject(FarmService)
     private readonly farmService: FarmService,
-  ) { }
+  ) {}
 
   async create(createFarmerDto: CreateFarmerDto) {
     try {
@@ -23,7 +23,9 @@ export class FarmerService {
         federalIdentification: createFarmerDto.federalIdentification,
       });
       if (exists) {
-        throw new ConflictException('Farmer with this federal identification already exists');
+        throw new ConflictException(
+          'Farmer with this federal identification already exists',
+        );
       }
       const farmer = this.farmerRepository.create(createFarmerDto);
       await this.farmerRepository.save(farmer);
@@ -36,7 +38,9 @@ export class FarmerService {
     }
   }
 
-  async findAll(paginationDto: PaginationDto = new PaginationDto()): Promise<PaginatedResult<Farmer>> {
+  async findAll(
+    paginationDto: PaginationDto = new PaginationDto(),
+  ): Promise<PaginatedResult<Farmer>> {
     const { page = 1, limit = 10 } = paginationDto;
     const skip = (page - 1) * limit;
 

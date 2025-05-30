@@ -1,18 +1,19 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Farm } from 'src/infra/database/entities/farm.entity';
 import { Harvest } from 'src/infra/database/entities/harvest.entity';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { FarmRepository } from 'src/infra/database/repositories/farm.repository';
+import { HarvestRepository } from 'src/infra/database/repositories/harvest.repository';
 
 @Injectable()
 export class DashboardService {
   constructor(
     @InjectRepository(Farm)
-    private readonly farmRepository: Repository<Farm>,
+    private readonly farmRepository: FarmRepository,
     @InjectRepository(Harvest)
-    private readonly harvestRepository: Repository<Harvest>,
+    private readonly harvestRepository: HarvestRepository,
     @Inject(CACHE_MANAGER)
     private cacheManager: Cache,
   ) {}
