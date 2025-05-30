@@ -6,6 +6,8 @@ describe('CreateFarmDto', () => {
   it('should validate a correct farm', async () => {
     const dto = {
       farmName: 'Farm 1',
+      city: 'Test City',
+      state: 'TS',
       totalArea: 100,
       arableArea: 60,
       vegetationArea: 40,
@@ -19,6 +21,8 @@ describe('CreateFarmDto', () => {
   it('should fail if totalArea is not the sum of arableArea and vegetationArea', async () => {
     const dto = {
       farmName: 'Farm 1',
+      city: 'Test City',
+      state: 'TS',
       totalArea: 90,
       arableArea: 60,
       vegetationArea: 40,
@@ -33,6 +37,8 @@ describe('CreateFarmDto', () => {
   it('should fail if farmName is empty', async () => {
     const dto = {
       farmName: '',
+      city: 'Test City',
+      state: 'TS',
       totalArea: 100,
       arableArea: 60,
       vegetationArea: 40,
@@ -47,6 +53,8 @@ describe('CreateFarmDto', () => {
   it('should fail if harvests is not an array', async () => {
     const dto = {
       farmName: 'Farm 1',
+      city: 'Test City',
+      state: 'TS',
       totalArea: 100,
       arableArea: 60,
       vegetationArea: 40,

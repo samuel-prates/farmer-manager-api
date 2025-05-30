@@ -3,6 +3,7 @@ import { FarmerController } from 'src/entrypoint/controller/farmer.controller';
 import { FarmerService } from 'src/app/domain/service/farmer.service';
 import { CreateFarmerDto } from 'src/app/domain/dto/create-farmer.dto';
 import { UpdateFarmerDto } from 'src/app/domain/dto/update-farmer.dto';
+import { PaginationDto } from 'src/app/domain/dto/pagination.dto';
 
 describe('FarmerController', () => {
   let controller: FarmerController;
@@ -39,8 +40,9 @@ describe('FarmerController', () => {
   });
 
   it('should return all farmers', () => {
-    expect(controller.findAll()).toEqual([{ id: 1, farmerName: 'John', farms: [] }]);
-    expect(service.findAll).toHaveBeenCalled();
+    const paginationDto = new PaginationDto();
+    expect(controller.findAll(paginationDto)).toEqual([{ id: 1, farmerName: 'John', farms: [] }]);
+    expect(service.findAll).toHaveBeenCalledWith(paginationDto);
   });
 
   it('should return one farmer', () => {

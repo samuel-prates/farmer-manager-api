@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CacheModule } from '@nestjs/cache-manager';
 import { FarmerModule } from './app/farmer.module';
 import { Farmer } from './infra/database/entities/farmer.entity';
 import { Farm } from './infra/database/entities/farm.entity';
@@ -19,6 +20,10 @@ import { Harvest } from './infra/database/entities/harvest.entity';
       autoLoadEntities: true,
       logging: process.env.DB_LOGGING === 'true',
       entities: [Farmer, Farm, Harvest],
+    }),
+    CacheModule.register({
+      ttl: 300, // 5 minutes in seconds
+      isGlobal: true,
     }),
     FarmerModule,
   ],

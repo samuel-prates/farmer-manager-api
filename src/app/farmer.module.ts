@@ -7,6 +7,7 @@ import { Farm } from 'src/infra/database/entities/farm.entity';
 import { Harvest } from 'src/infra/database/entities/harvest.entity';
 import { FarmService } from './domain/service/farm.service';
 import { HarvestService } from './domain/service/harvest.service';
+import { DashboardService } from './domain/service/dashboard.service';
 import { DashboardController } from 'src/entrypoint/controller/dashboard.controller';
 
 @Module({
@@ -14,6 +15,6 @@ import { DashboardController } from 'src/entrypoint/controller/dashboard.control
     TypeOrmModule.forFeature([Farmer, Farm, Harvest])
   ],
   controllers: [FarmerController, DashboardController],
-  providers: [FarmerService, FarmService, HarvestService],
+  providers: [FarmerService, FarmService, HarvestService, DashboardService],
 })
 export class FarmerModule { }

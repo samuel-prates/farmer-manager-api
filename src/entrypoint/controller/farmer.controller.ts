@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { FarmerService } from '../../app/domain/service/farmer.service';
 import { CreateFarmerDto } from '../../app/domain/dto/create-farmer.dto';
 import { UpdateFarmerDto } from '../../app/domain/dto/update-farmer.dto';
+import { PaginationDto } from '../../app/domain/dto/pagination.dto';
 
-@Controller('farmer')
+@Controller('api/farmers')
 export class FarmerController {
   constructor(private readonly farmerService: FarmerService) {}
 
@@ -13,8 +14,8 @@ export class FarmerController {
   }
 
   @Get()
-  findAll() {
-    return this.farmerService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.farmerService.findAll(paginationDto);
   }
 
   @Get(':id')

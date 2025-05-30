@@ -7,6 +7,8 @@ describe('CreateFarmerDto', () => {
   it('should validate a correct farmer', async () => {
     const farm: CreateFarmDto = {
       farmName: 'Farm 1',
+      city: 'Test City',
+      state: 'TS',
       totalArea: 100,
       arableArea: 60,
       vegetationArea: 40,

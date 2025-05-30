@@ -1,6 +1,8 @@
 import { BadRequestException, ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFarmerDto } from '../dto/create-farmer.dto';
 import { UpdateFarmerDto } from '../dto/update-farmer.dto';
+import { PaginationDto } from '../dto/pagination.dto';
+import { PaginatedResult } from '../interfaces/paginated-result.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Farmer } from 'src/infra/database/entities/farmer.entity';
 import { Repository } from 'typeorm';
@@ -14,7 +16,7 @@ export class FarmerService {
     @Inject(FarmService)
     private readonly farmService: FarmService,
   ) { }
-  
+
   async create(createFarmerDto: CreateFarmerDto) {
     try {
       const exists = await this.farmerRepository.findOneBy({
@@ -34,14 +36,29 @@ export class FarmerService {
     }
   }
 
-  async findAll(): Promise<Farmer[]> {
-    return this.farmerRepository.find({
+  async findAll(paginationDto: PaginationDto = new PaginationDto()): Promise<PaginatedResult<Farmer>> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [items, total] = await this.farmerRepository.findAndCount({
       relations: {
         farms: {
           harvests: true,
         },
       },
+      skip,
+      take: limit,
     });
+
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+      items,
+      total,
+      page,
+      limit,
+      totalPages,
+    };
   }
 
   async findOne(id: number): Promise<Farmer> {

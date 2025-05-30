@@ -17,6 +17,7 @@ describe('FarmerService', () => {
     findOneBy: jest.fn(),
     findOne: jest.fn(),
     find: jest.fn(),
+    findAndCount: jest.fn(),
     create: jest.fn(),
     save: jest.fn(),
     merge: jest.fn(),
@@ -72,15 +73,23 @@ describe('FarmerService', () => {
   });
 
   it('should find all farmers', async () => {
-    mockFarmerRepository.find.mockResolvedValue([{ id: 1 }]);
+    mockFarmerRepository.findAndCount.mockResolvedValue([[{ id: 1 }], 1]);
     const result = await service.findAll();
-    expect(result).toEqual([{ id: 1 }]);
-    expect(mockFarmerRepository.find).toHaveBeenCalledWith({
+    expect(result).toEqual({
+      items: [{ id: 1 }],
+      total: 1,
+      page: 1,
+      limit: 10,
+      totalPages: 1
+    });
+    expect(mockFarmerRepository.findAndCount).toHaveBeenCalledWith({
       relations: {
         farms: {
-          "harvests": true,
+          harvests: true,
         },
       },
+      skip: 0,
+      take: 10,
     });
   });
 

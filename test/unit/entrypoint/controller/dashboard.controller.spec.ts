@@ -1,34 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DashboardController } from 'src/entrypoint/controller/dashboard.controller';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Farm } from 'src/infra/database/entities/farm.entity';
-import { Harvest } from 'src/infra/database/entities/harvest.entity';
+import { DashboardService } from 'src/app/domain/service/dashboard.service';
 
 describe('DashboardController', () => {
   let controller: DashboardController;
 
-  const mockFarmRepository = {
-    find: jest.fn(() => [
-      { state: 'SP', arableArea: 100, vegetationArea: 50 },
-      { state: 'SP', arableArea: 200, vegetationArea: 100 },
-      { state: 'MG', arableArea: 150, vegetationArea: 75 },
-    ]),
-  };
-
-  const mockHarvestRepository = {
-    find: jest.fn(() => [
-      { culture: 'Corn' },
-      { culture: 'Soy' },
-      { culture: 'Corn' },
-    ]),
+  const mockDashboardService = {
+    getFarmStates: jest.fn().mockResolvedValue({ SP: 2, MG: 1 }),
+    getHarvestCultures: jest.fn().mockResolvedValue({ Corn: 2, Soy: 1 }),
+    getAreas: jest.fn().mockResolvedValue({ totalArableArea: 450, totalVegetationArea: 225 }),
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [DashboardController],
       providers: [
-        { provide: getRepositoryToken(Farm), useValue: mockFarmRepository },
-        { provide: getRepositoryToken(Harvest), useValue: mockHarvestRepository },
+        { provide: DashboardService, useValue: mockDashboardService },
       ],
     }).compile();
 
@@ -41,13 +28,16 @@ describe('DashboardController', () => {
 
   it('should return farm states count', async () => {
     expect(await controller.getFarmStates()).toEqual({ SP: 2, MG: 1 });
+    expect(mockDashboardService.getFarmStates).toHaveBeenCalled();
   });
 
   it('should return harvest cultures count', async () => {
     expect(await controller.getHarvestCultures()).toEqual({ Corn: 2, Soy: 1 });
+    expect(mockDashboardService.getHarvestCultures).toHaveBeenCalled();
   });
 
   it('should return total areas', async () => {
     expect(await controller.getAreas()).toEqual({ totalArableArea: 450, totalVegetationArea: 225 });
+    expect(mockDashboardService.getAreas).toHaveBeenCalled();
   });
 });
